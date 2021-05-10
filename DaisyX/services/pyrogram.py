@@ -10,7 +10,6 @@
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Affero General Public License for more details.
 
-import asyncio
 
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -36,8 +35,5 @@ pbot = Client(
 
 # disable logging for pyrogram [not for ERROR logging]
 logging.getLogger("pyrogram").setLevel(level=logging.ERROR)
-try:
-    pbot.start()
-except (OSError, TimeoutError, Error):
-    asyncio.sleep(2)
-    pbot.start()
+
+pbot.start()
