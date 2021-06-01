@@ -18,7 +18,9 @@ import logging
 import time
 
 from pyrogram import filters
+from pyrogram.errors import RPCError
 from pyrogram.errors.exceptions.bad_request_400 import (
+    ChannelPrivate,
     ChatAdminRequired,
     PeerIdInvalid,
     UsernameNotOccupied,
@@ -67,6 +69,10 @@ def _onUnMuteRequest(client, cb):
                         text=f"❗ Join our @{channel} channel and press 'UnMute Me' button.",
                         show_alert=True,
                     )
+                except ChannelPrivate:
+                    client.unban_chat_member(chat_id, user_id)
+                    cb.message.delete()
+
             else:
                 client.answer_callback_query(
                     cb.id,
@@ -136,12 +142,16 @@ def _check_member(client, message):
                         sent_message.edit(
                             "❗ **Daisy is not admin here..**\n__Give me ban permissions and retry.. \n#Ending FSub...__"
                         )
+                    except RPCError:
+                        return
 
                 except ChatAdminRequired:
                     client.send_message(
                         chat_id,
                         text=f"❗ **I not an admin of @{channel} channel.**\n__Give me admin of that channel and retry.\n#Ending FSub...__",
                     )
+                except ChannelPrivate:
+                    return
         except:
             return
 

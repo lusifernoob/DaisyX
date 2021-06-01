@@ -36,8 +36,8 @@ from DaisyX.services.pyrogram import pbot as daisyx
 translator = google_translator()
 
 
-async def lunaQuery(query):
-    luna = await arq.luna(query)
+async def lunaQuery(query: str, user_id: int):
+    luna = await arq.luna(query, user_id)
     return luna.result
 
 
@@ -170,7 +170,9 @@ async def hmm(client, message):
         test = msg
         test = test.replace("daisy", "Aco")
         test = test.replace("Daisy", "Aco")
-        response = await lunaQuery(test)
+        response = await lunaQuery(
+            test, message.from_user.id if message.from_user else 0
+        )
         response = response.replace("Aco", "Daisy")
         response = response.replace("aco", "Daisy")
 
@@ -224,8 +226,9 @@ async def hmm(client, message):
 
         test = test.replace("daisy", "Aco")
         test = test.replace("Daisy", "Aco")
-        response = await lunaQuery(test)
-
+        response = await lunaQuery(
+            test, message.from_user.id if message.from_user else 0
+        )
         response = response.replace("Aco", "Daisy")
         response = response.replace("aco", "Daisy")
         pro = response
@@ -293,8 +296,7 @@ async def inuka(client, message):
     test = test.replace("daisy", "Aco")
     test = test.replace("Daisy", "Aco")
 
-    response = await lunaQuery(test)
-
+    response = await lunaQuery(test, message.from_user.id if message.from_user else 0)
     response = response.replace("Aco", "Daisy")
     response = response.replace("aco", "Daisy")
 
@@ -364,7 +366,7 @@ async def inuka(client, message):
 
     test = test.replace("daisy", "Aco")
     test = test.replace("Daisy", "Aco")
-    response = await lunaQuery(test)
+    response = await lunaQuery(test, message.from_user.id if message.from_user else 0)
     response = response.replace("Aco", "Daisy")
     response = response.replace("aco", "Daisy")
 

@@ -117,7 +117,12 @@ Python_ARQ
 googletrans==4.0.0-rc1
 pyromod
 aiofiles
+pygithub
 
 
 #
 Skem==0.3.3
+gogoanime-api
+
+
+
