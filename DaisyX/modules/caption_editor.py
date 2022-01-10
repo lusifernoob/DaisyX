@@ -1,4 +1,5 @@
-# Copyright (C) 2021 ProgrammingError
+# Copyright (C) 2021 TeamDaisyX
+
 
 # This file is part of Daisy (Telegram Bot)
 
@@ -15,20 +16,26 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import github  # pyGithub
 from pyrogram import filters
+from pyrogram.errors import RPCError
 
-from DaisyX.services.pyrogram import pbot as client
+from DaisyX.function.pluginhelpers import admins_only, get_text
+from DaisyX.services.pyrogram import pbot
 
 
-@client.on_message(filters.command("contributors") & ~filters.edited)
-async def give_cobtribs(c, m):
-    g = github.Github()
-    co = ""
-    n = 0
-    repo = g.get_repo("TeamDaisyX/DaisyX")
-    for i in repo.get_contributors():
-        n += 1
-        co += f"{n}. [{i.login}](https://github.com/{i.login})\n"
-    t = f"**DaisyX Contributors**\n\n{co}"
-    await m.reply(t, disable_web_page_preview=True)
+@pbot.on_message(
+    filters.command("cedit") & ~filters.edited & ~filters.bot & ~filters.private
+)
+@admins_only
+async def loltime(client, message):
+    lol = await message.reply("Processing please wait")
+    cap = get_text(message)
+    if not message.reply_to_message:
+        await lol.edit("reply to any message to edit caption")
+    reply = message.reply_to_message
+    try:
+        await reply.copy(message.chat.id, caption=cap)
+        await lol.delete()
+    except RPCError as i:
+        await lol.edit(i)
+        return

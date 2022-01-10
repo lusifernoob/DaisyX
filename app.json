@@ -8,7 +8,7 @@
     "telegram-DaisyX",
     "fuck-TG"
   ],
-  "repository": "https://github.com/TeamDaisyX/Daisy-x",
+  "repository": "https://github.com/TeamDaisyX/DaisyX",
   "website": "daisyproject.studio",
   "success_url": "t.me/DaisyXUpdates",
   "buildpacks": [
@@ -16,7 +16,7 @@
      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
    },
    {
-     "url": "heroku/python"
+     "url": "https://github.com/InukaAsith/heroku-buildpack-python"
    }     
   ],    
   "env": {
@@ -105,10 +105,10 @@
       "value": "",
       "required": true
     },
-    "LYDIA_API_KEY": {
-      "description": "AI chat",
+    "SUDO_USERS": {
+      "description": "For gbans",
       "value": "",
-      "required": false
+      "required": true
     },
     "DATABASE_URL": {
       "description": "get from elephantsql.com",
